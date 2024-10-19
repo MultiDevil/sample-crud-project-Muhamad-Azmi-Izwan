@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrudApp.Controllers
 {
+    //Controller class
+    //Controller route
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -16,16 +18,16 @@ namespace CrudApp.Controllers
             _context = context;
         }
 
-        // GET: api/product
+        // Example to get every data in Product "GET: api/product"
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetData()
         {
             return await _context.Products.ToListAsync();
         }
 
-        // GET: api/product/5
+        // Example to get specific data in Product based on id "GET: api/product/5"
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<Product>> GetSpecificData(int id)
         {
             var product = await _context.Products.FindAsync(id);
 
@@ -37,19 +39,19 @@ namespace CrudApp.Controllers
             return product;
         }
 
-        // POST: api/product
+        // Example to insert new data based on the body of the json input "POST: api/product"
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<Product>> InsertData(Product product)
         {
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
+            return CreatedAtAction(nameof(GetSpecificData), new { id = product.Id }, product);
         }
 
-        // PUT: api/product/5
+        // Example to update the data in Product based on id and the data that need to be change in json body including id "PUT: api/product/5"
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduct(int id, Product product)
+        public async Task<IActionResult> UpdateData(int id, Product product)
         {
             if (id != product.Id)
             {
@@ -77,9 +79,9 @@ namespace CrudApp.Controllers
             return NoContent();
         }
 
-        // DELETE: api/product/5
+        // Example to delete data based on their id "DELETE: api/product/5"
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteProduct(int id)
+        public async Task<IActionResult> DeleteData(int id)
         {
             var product = await _context.Products.FindAsync(id);
             if (product == null)
